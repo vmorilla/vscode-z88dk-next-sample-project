@@ -1,0 +1,22 @@
+{
+    "triggerTaskOnSave.tasks": {
+        "build": [
+            "*.asm",
+            "*.c",
+            "*.h",
+            "*.inc",
+            "Makefile"
+        ],
+    },
+    "files.autoSave": "onFocusChange",
+    "files.autoSaveDelay": 1000,
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "build/**": true
+    },
+    "files.associations": {
+        "*.h": "c",
+        "*.inc": "asm"
+    },
+    "makefile.configureOnOpen": false
+}

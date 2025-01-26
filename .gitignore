@@ -1,0 +1,17 @@
+# Build directories
+build/
+
+# Python venv
+.venv/
+
+# Temporal files for dezog
+.tmp/
+
+# Object and debug files
+src/*.o
+src/*.lis
+src/*.sym
+src/*.map
+src/*.nex
+
+.DS_Store
