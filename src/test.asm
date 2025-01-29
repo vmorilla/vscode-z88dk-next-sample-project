@@ -1,20 +1,16 @@
 SECTION code_user
 
-PUBLIC _main
+PUBLIC _test
 
-_main:
-    xor a
+_test:
     ld hl, 0x4000
     ld bc, 6912
-    ld d,0
+    ld d, 255
 vicloop:
     ld (hl), d
-    inc d
     inc hl
     dec bc
     ld a, b
     or c
     jr nz, vicloop
     ret
-
-

@@ -7,13 +7,13 @@
             "remoteType": "cspect",
             "z88dkv2": [
                 {
-                    "path": "src/main.asm.lis",
+                    "path": "src/*.lis",
                     "srcDirs": [
-                        "src/"
+                        "src"
                     ],
-                    "mapFile": "src/main.map",
+                    "mapFile": "build/main.map",
                     "excludeFiles": []
-                }
+                },
             ],
             "startAutomatically": false,
             "history": {
@@ -29,7 +29,7 @@
             },
             "rootFolder": "${workspaceFolder}",
             "topOfStack": "0xFF58",
-            "load": "src/main.nex",
+            "load": "build/main.nex",
             "smallValuesMaximum": 513,
             "tmpDir": ".tmp"
         }
