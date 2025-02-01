@@ -23,7 +23,7 @@
                     ],
                     "pattern": [
                         {
-                            "regexp": "^(.*?):(\\d+):\\s*(warning|error):\\s+(.*)$",
+                            "regexp": "^(.*?):(\\d+):.*(warning|error).*:\\s+(.*)$",
                             "file": 1,
                             "line": 2,
                             "severity": 3,
