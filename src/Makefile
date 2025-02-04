@@ -16,6 +16,7 @@ OUTPUT = $(OUTPUT_DIR)/main.nex
 
 # Rules
 $(OUTPUT): $(SRCS)
+	mkdir -p $(OUTPUT_DIR)
 	zcc $(CFLAGS) $(LIBS) $^ -create-app -o $@
 
 

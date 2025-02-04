@@ -14,4 +14,8 @@ src/*.sym
 src/*.map
 src/*.nex
 
+# MacOS files
 .DS_Store
+
+# CSpect temporary files
+cspect_win.dat
