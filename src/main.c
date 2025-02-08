@@ -5,10 +5,7 @@
 #include "factorial.h"
 #include "calls.h"
 
-struct BitFields
-{
-    unsigned int x : 9; // 9 bits
-};
+extern uint16_t _register_sp;
 
 int main(void)
 {
@@ -18,23 +15,6 @@ int main(void)
     printf("Normal 8-16-8 -> 16: %d\n", normal_8_16_8_r16(10, 30, 20));
     printf("Fibonacci(10) = %d\n", fibonacci(10));
     printf("Factorial(10) = %d\n", factorial(10));
-
-    struct BitFields bf;
-
-    *((unsigned char *)(&bf + 1)) = 0;
-    *((unsigned char *)(&bf)) = 0;
-
-    bf.x = 258;
-    if (bf.x == 258)
-        printf("OK\n");
-
-    unsigned char *p = (unsigned char *)&bf;
-
-    printf("bit1: %u\n", bf.x);
-    printf("Byte 1: %u\n", *p);
-    printf("Byte 2: %u\n", *(p + 1));
-
-    printf("Size of struct: %zu bytes\n", sizeof(bf));
 
     in_wait_key();
 
