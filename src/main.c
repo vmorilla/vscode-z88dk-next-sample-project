@@ -5,8 +5,6 @@
 #include "factorial.h"
 #include "calls.h"
 
-extern uint16_t _register_sp;
-
 int main(void)
 {
     clear_ula();
