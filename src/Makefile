@@ -8,7 +8,7 @@ CRT = 1
 
 C_OPT_FLAGS=-SO3 --max-allocs-per-node200000 --opt-code-size
 CFLAGS = $(TARGET) $(VERBOSITY) --list -m --c-code-in-asm -clib=sdcc_iy -Cz"--clean" -startup=$(CRT)
-LIBS = 
+LIBS = -lndos
 
 # Specify the source files
 SRCS = $(wildcard *.c) $(wildcard *.asm)
