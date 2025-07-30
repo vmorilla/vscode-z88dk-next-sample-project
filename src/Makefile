@@ -7,8 +7,8 @@ VERBOSITY = -vn   # -v for verbose, -vn for not verbose
 CRT = 1	
 
 C_OPT_FLAGS=-SO3 --max-allocs-per-node200000 --opt-code-size
-CFLAGS = $(TARGET) $(VERBOSITY) --list -m --c-code-in-asm -clib=sdcc_iy -Cz"--clean" -startup=$(CRT)
-LIBS = 
+CFLAGS = $(TARGET) $(VERBOSITY) $(C_OPT_FLAGS) --list -m --c-code-in-asm -clib=sdcc_iy -Cz"--clean" -startup=$(CRT)
+LDFLAGS= -startup=$(CRT) -pragma-include:zpragma.inc
 
 # Specify the source files
 SRCS = $(wildcard *.c) $(wildcard *.asm)
@@ -20,7 +20,7 @@ OUTPUT = $(OUTPUT_DIR)/main.nex
 # Rules
 $(OUTPUT): $(SRCS)
 	mkdir -p $(OUTPUT_DIR)
-	zcc $(CFLAGS) $(LIBS) $^ -create-app -o $@
+	zcc $(CFLAGS) $(LDFLAGS) $^ -create-app -o $@
 
 
 # Clean rule

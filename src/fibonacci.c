@@ -1,6 +1,8 @@
 #include "fibonacci.h"
 
-int fibonacci(int n)
+#pragma codeseg PAGE_22_CODE
+
+int fibonacci(int n) __banked
 {
     if (n <= 1)
     {
