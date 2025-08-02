@@ -3,7 +3,6 @@
 	EXTERN l_jphl, __REG_MMU6, __REG_MMU7
 
 	defc CLIB_BANKING_STACK_SIZE = 100
-	defc ZX_BANK_IOPORT = 0x7ffd
 
 banked_call:
     di
@@ -34,9 +33,7 @@ banked_call:
     
     ei
     
-;    ex de, hl                  ; Puts the call address in hl
-    ld l, e
-    ld h, d
+    ex de, hl                  ; Puts the call address in hl
     call l_jphl
 
     di
