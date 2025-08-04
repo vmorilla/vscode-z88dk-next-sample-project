@@ -11,25 +11,31 @@ banked_call:
     ld sp, (tempsp)             ; Set the stack poin`ter to the temporary stack
 
     ld a, (cur_bank)            ; Get the current bank
-    push af                     ; Save the current bank in the stack
-
+    ld c, a
     ld e, (hl)                  ; Fetch the call address in de
     inc hl
     ld d, (hl)
-    inc hl                      
-    ld a, (hl)                  ; ...and page
     inc hl
-    inc hl                      ; Yes this should be here
+    
+    ld a, d
+    and $c0
+    rlc a
+    rlc a
+    rlc a
+    or $50
+    ld b, a
+    push bc
+                         ; Save the current bank in the stack
+
+    ld c, (hl)                  ; ...and page
+    inc hl
+    inc hl
     push hl                     ; Push the real return address
+
+    call setbank
 
     ld (tempsp), sp
     ld sp, (mainsp)
-
-    ; Sets MMU 0 and 1 to the new pages (A and A+1)
-    ld (cur_bank), a
-    nextreg __REG_MMU6, a
-    inc a
-    nextreg __REG_MMU7, a
     
     ei
     
@@ -40,21 +46,34 @@ banked_call:
     ld      (mainsp), sp       ; Sets the temporal stack pointer
     ld      sp, (tempsp)
 
-    pop bc                          ; Get the return address
-    pop af                          ; Pop the old page
+    ; Avoid using de...
+    pop de                          ; Get the return address
+    pop bc                          ; Pop the old page
+
+    call setbank
 
     ld      (tempsp), sp       ; Restores the default stack pointer
     ld      sp, (mainsp)
 
-    push bc                     ; Push the return address
-
-    ; Restores MMU 6 and 7 pages
-    ld (cur_bank), a
-    nextreg __REG_MMU6, a
-    inc a
-    nextreg __REG_MMU7, a
+    push de                     ; Push the return address
 
     ei
+    ret
+
+; B: MMU register
+; C: Bank number
+setbank:
+    ld a, b
+    ld (setbank_reg1 + 2), a
+    inc a
+    ld (setbank_reg2 + 2), a
+    ld a, c
+    ld (cur_bank), a
+setbank_reg1:
+    nextreg __REG_MMU6, a
+    inc a
+setbank_reg2:
+    nextreg __REG_MMU7, a
     ret
 
 

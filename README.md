@@ -23,3 +23,16 @@ Currently, using a forked version of DeZog: [https://github.com/vmorilla/DeZog/r
 - [.vscode/tasks.json](.vscode/tasks.json): configuration of the build task (launching the Makefile) with a problem matcher adapted to the output of Z88dk
 
 - [.vscode/settings](.vscode/settings): settings of the editor, included the automatic launch of the building process
+
+
+
+
+4000 = 0100 
+8000 = 1000
+C000 = 1100
+
+MMU0 50 0101 0000
+MMU1 51 0101 0001
+MMU2 52 0101 0010
+MMU3 53 0101 0011
+M
