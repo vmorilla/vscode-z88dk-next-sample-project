@@ -17,15 +17,15 @@ banked_call:
     inc hl
     ld d, (hl)
     inc hl                      
-    ld a, (hl)                  ; ...and page
+    ld a, (hl)                  ; ...and target page
     inc hl
     inc hl                      ; Yes this should be here
     push hl                     ; Push the real return address
 
-    ld (tempsp), sp
-    ld sp, (mainsp)
+    ld (tempsp), sp             ; Saves the temporal call stack 
+    ld sp, (mainsp)             ; and restores the regular stack
 
-    ; Sets MMU 0 and 1 to the new pages (A and A+1)
+    ; Sets MMU (as per defined) the new pages (A and A+1)
     ld (cur_bank), a
     nextreg __REG_MMU6, a
     inc a
@@ -34,21 +34,21 @@ banked_call:
     ei
     
     ex de, hl                  ; Puts the call address in hl
-    call l_jphl
+    call l_jphl                ; Calls the banked function    
 
     di
-    ld      (mainsp), sp       ; Sets the temporal stack pointer
-    ld      sp, (tempsp)
+    ld (mainsp), sp             ; Sets the temporal stack pointer
+    ld sp, (tempsp)
 
-    pop bc                          ; Get the return address
-    pop af                          ; Pop the old page
+    pop bc                      ; Get the return address
+    pop af                      ; Pop the old page
 
-    ld      (tempsp), sp       ; Restores the default stack pointer
-    ld      sp, (mainsp)
+    ld (tempsp), sp       ; Restores the default stack pointer
+    ld sp, (mainsp)
 
     push bc                     ; Push the return address
 
-    ; Restores MMU 6 and 7 pages
+    ; Restores MMU pages
     ld (cur_bank), a
     nextreg __REG_MMU6, a
     inc a
