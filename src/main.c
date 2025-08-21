@@ -8,8 +8,8 @@ int main(void)
 {
     clear_ula();
 
-    printf("Fibonacci(5) = %d\n", fibonacci(5));
-    printf("Factorial(5) = %d\n", factorial(5));
+    printf("Fibonacci(5) = %d\n", fibonacci(1));
+    printf("Factorial(5) = %d\n", factorial(1));
 
     in_wait_key();
 

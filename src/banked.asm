@@ -1,6 +1,6 @@
 	SECTION code_driver
 	PUBLIC banked_call
-	EXTERN l_jphl, __REG_MMU6, __REG_MMU7
+	EXTERN l_jphl
 
 	defc CLIB_BANKING_STACK_SIZE = 100
 
@@ -65,22 +65,26 @@ banked_call:
 setbank:
     ld a, b
     ld (setbank_reg1 + 2), a
+
     inc a
+
     ld (setbank_reg2 + 2), a
     ld a, c
     ld (cur_bank), a
 setbank_reg1:
-    nextreg __REG_MMU6, a
+    nextreg 0, a
+    cp $ff
+    jr z, setbank_reg2
     inc a
 setbank_reg2:
-    nextreg __REG_MMU7, a
+    nextreg 0, a
     ret
 
 
     SECTION data_crt
 
 tempsp:     defw  tempstack_end 
-cur_bank:   defb 0
+cur_bank:   defb $FF
 
     SECTION bss_crt
 mainsp:     defs    2
