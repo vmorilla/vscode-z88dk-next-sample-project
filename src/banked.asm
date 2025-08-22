@@ -1,6 +1,6 @@
 	SECTION code_driver
 	PUBLIC banked_call
-	EXTERN l_jphl, __REG_MMU6, __REG_MMU7
+	EXTERN l_jphl, __clib_banking_mmu_low, __clib_banking_mmu_high
 
 	defc CLIB_BANKING_STACK_SIZE = 100
 
@@ -27,10 +27,10 @@ banked_call:
 
     ; Sets MMU (as per defined) the new pages (A and A+1)
     ld (cur_bank), a
-    nextreg __REG_MMU6, a
+    nextreg __clib_banking_mmu_low, a
     inc a
-    nextreg __REG_MMU7, a
-    
+    nextreg __clib_banking_mmu_high, a
+
     ei
     
     ex de, hl                  ; Puts the call address in hl
@@ -50,9 +50,9 @@ banked_call:
 
     ; Restores MMU pages
     ld (cur_bank), a
-    nextreg __REG_MMU6, a
+    nextreg __clib_banking_mmu_low, a
     inc a
-    nextreg __REG_MMU7, a
+    nextreg __clib_banking_mmu_high, a
 
     ei
     ret
@@ -60,10 +60,10 @@ banked_call:
 
     SECTION data_crt
 
-tempsp:     defw  tempstack_end 
+tempsp:     defw tempstack_end 
 cur_bank:   defb 0
 
     SECTION bss_crt
-mainsp:     defs    2
-tempstack:  defs    CLIB_BANKING_STACK_SIZE
+mainsp:     defs 2
+tempstack:  defs CLIB_BANKING_STACK_SIZE
 tempstack_end:
