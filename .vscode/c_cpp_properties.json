@@ -22,7 +22,8 @@
                 "__Z80N",
                 "__SDCC_IY",
                 "__Z88DK_NEWLIB",
-                "__Z88DK"
+                "__Z88DK",
+                "__banked="
                 // "__SDCC"   
             ],
             "mergeConfigurations": true

@@ -1,6 +1,8 @@
 #include "factorial.h"
 
-int factorial(int n)
+#pragma codeseg PAGE_20_CODE
+
+int factorial(int n) __banked
 {
     if (n <= 1)
     {
