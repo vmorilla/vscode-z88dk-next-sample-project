@@ -6,7 +6,7 @@
         {
             "name": "z88dk",
             "includePath": [
-                "${z88dk}/include/_DEVELOPMENT/clang"
+                "${z88dk}/include/_DEVELOPMENT/common"
             ],
             "forcedInclude": [
                 // "${z88dk}/include/sys/compiler.h",
