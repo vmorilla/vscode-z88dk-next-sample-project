@@ -70,3 +70,5 @@ Limitations of "z88dkv3":
 - [src/factorial.c](src/factorial.c): Implementation of the factorial function. To make it banked, simply add the `__banked` qualifier and use `#pragma codeseg` to specify the memory page for placement; no other changes are required.
   
 - [src/fibonacci.c](src/fibonacci.c): Implementation of the fibonacci function. To make it banked, simply add the `__banked` qualifier and use `#pragma codeseg` to specify the memory page for placement; no other changes are required.
+
+- [src/interrupts.c](src/interrupts.c): Sets up IM 2 with the vector table at `0xFD00` and the handler outside `0x0000-0x3FFF`. This is needed because banked code is paged into `0x0000-0x3FFF` (`CLIB_BANKING_SEGMENT = 0`), replacing the ROM and its IM 1 handler at `0x0038`: an interrupt while a banked function runs would otherwise jump into the banked page and crash the program. Stopping at a breakpoint inside a banked function makes this almost certain to happen when execution is resumed.

@@ -2,7 +2,7 @@
 SUBDIRS := src
 
 CSPECT := cspect
-CSPECT_FLAGS := -threaded -debug -50  #-rewind
+CSPECT_FLAGS := -debug -50  #-rewind #-threaded 
 
 
 .PHONY: all $(SUBDIRS) clean run
