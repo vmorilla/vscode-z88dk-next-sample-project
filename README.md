@@ -1,6 +1,39 @@
 # Sample project for ZXSpectrum Next using Z88dk in VS Code
 Simple example demonstrating [banked function calls](https://github.com/z88dk/z88dk/wiki/More-Than-64k), which allow code execution across different memory banks without manual bank switching. Note: Banked calls require the [z88dk nightly snapshot](http://nightly.z88dk.org/) from September 7th, 2025 or later.
 
+## Debugging with the map file (DeZog "z88dkv3")
+
+This branch builds with `-debug -m`. With `-debug`, z88dk writes the debug information directly into the linker map file (`build/main.map`):
+
+- `__C_LINE_*` symbols: address of each C source line, including the level and block (scope) for sdcc, e.g.
+  `__C_LINE_7_factorial_2ec... = $140000 ; addr, local, , factorial_c, PAGE_20_CODE, factorial.c::x::10000::1:7`
+- `__ASM_LINE_*` symbols: address of each assembler line that has a label.
+- `__CDBINFO__*` symbols: the sdcc CDB records (functions, variables, types).
+
+The final (linked) addresses in the map file also carry the page of banked code (`0x14xxxx` for `PAGE_20_CODE`, `0x16xxxx` for `PAGE_22_CODE`, see [src/mmap.inc](src/mmap.inc)). This lets DeZog set breakpoints in, and step through, `factorial.c` and `fibonacci.c` even though both are mapped at `0x0000`.
+
+The first configuration in [.vscode/launch.json](.vscode/launch.json), "DeZog (map file, z88dkv3)", reads only the map file:
+
+```json
+"z88dkv3": [
+    {
+        "path": "build/main.map",
+        "srcDirs": ["src"]
+    }
+]
+```
+
+The second configuration, "DeZog (list files, z88dkv2)", keeps the previous .lis based setup, so you can compare both.
+
+Requirements:
+- A z88dk nightly from 2026-04-21 or later (includes the `sdcc_debug` changes, the zpragma line fix and the ucpp line sync fix, see [this z88dk forum thread](https://www.z88dk.org/forum/viewtopic.php?t=12139)).
+- A DeZog build with the "z88dkv3" parser: branch [claude/z88dk-parser-v3](https://github.com/vmorilla/DeZog/tree/claude/z88dk-parser-v3) of vmorilla/DeZog. Build it with `npm ci && npx @vscode/vsce package` and install the resulting `.vsix` with "Extensions: Install from VSIX...".
+
+Limitations of "z88dkv3":
+- Assembler files (e.g. [src/clear-ula.asm](src/clear-ula.asm)) only get line information for lines with a label.
+- WPMEM, ASSERTION and LOGPOINT comments are not supported.
+- The `__CDBINFO__` records are not evaluated by DeZog yet.
+
 ## Features
 - Debuggin capabilities with [Dezog](https://github.com/maziac/DeZog)
 - Problem matcher for error messages
