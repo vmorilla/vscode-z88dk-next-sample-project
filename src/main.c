@@ -3,9 +3,11 @@
 #include "clear-ula.h"
 #include "fibonacci.h"
 #include "factorial.h"
+#include "interrupts.h"
 
 int main(void)
 {
+    setup_interrupts();
     clear_ula();
 
     printf("Fibonacci(5) = %d\n", fibonacci(5));
