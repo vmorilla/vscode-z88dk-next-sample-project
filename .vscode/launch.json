@@ -1,44 +1,12 @@
 {
     "configurations": [
         {
-            // Uses the debug information in the map file (build with "-debug -m").
-            // Requires a DeZog version with the "z88dkv3" parser.
+            // Uses the .lis files and the map file (build with "--list --c-code-in-asm -m").
+            // If the map file contains the "-debug" information (__C_LINE_ symbols)
+            // it is used for the C lines (requires the DeZog branch claude/z88dk-parser-v3-on-3.7.4).
             "type": "dezog",
             "request": "launch",
-            "name": "DeZog (map file, z88dkv3)",
-            "remoteType": "cspect",
-            "z88dkv3": [
-                {
-                    "path": "build/main.map",
-                    "srcDirs": [
-                        "src"
-                    ],
-                    "excludeFiles": []
-                }
-            ],
-            "startAutomatically": false,
-            "history": {
-                "reverseDebugInstructionCount": 10000,
-                "codeCoverageEnabled": false
-            },
-            "commandsAfterLaunch": [],
-            "disassemblerArgs": {
-                "numberOfLines": 20
-            },
-            "smartDisassemblerArgs": {
-                "lowerCase": false
-            },
-            "rootFolder": "${workspaceFolder}",
-            "topOfStack": "0xFF58",
-            "load": "build/main.nex",
-            "smallValuesMaximum": 513,
-            "tmpDir": ".tmp"
-        },
-        {
-            // Uses the .lis files (build with "--list --c-code-in-asm -m").
-            "type": "dezog",
-            "request": "launch",
-            "name": "DeZog (list files, z88dkv2)",
+            "name": "DeZog",
             "remoteType": "cspect",
             "z88dkv2": [
                 {

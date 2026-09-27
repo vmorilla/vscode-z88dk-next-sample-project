@@ -8,9 +8,9 @@ CRT = 1
 
 C_OPT_FLAGS=-SO3 --opt-code-size
 # -debug: z88dk writes the debug information (__C_LINE_, __ASM_LINE_ and __CDBINFO__
-#         symbols) into the map file. This is what DeZog's "z88dkv3" parser uses.
-# -m:     create the map file (build/main.map).
-# --list --c-code-in-asm: only needed for DeZog's older "z88dkv2" parser (.lis files).
+#         symbols) into the map file. DeZog ("z88dkv2") uses the __C_LINE_ symbols
+#         for the C line <-> address associations.
+# -m, --list, --c-code-in-asm: map file and .lis files, required by DeZog.
 CFLAGS = $(TARGET) $(VERBOSITY) $(C_OPT_FLAGS) -debug -m --list --c-code-in-asm -clib=sdcc_iy -Cz"--clean" -startup=$(CRT) -pragma-include:zpragma.inc
 LDFLAGS= -startup=$(CRT) -pragma-include:zpragma.inc --list
 
