@@ -27,7 +27,7 @@ The second configuration, "DeZog (list files, z88dkv2)", keeps the previous .lis
 
 Requirements:
 - A z88dk nightly from 2026-04-21 or later (includes the `sdcc_debug` changes, the zpragma line fix and the ucpp line sync fix, see [this z88dk forum thread](https://www.z88dk.org/forum/viewtopic.php?t=12139)).
-- A DeZog build with the "z88dkv3" parser: branch [claude/z88dk-parser-v3](https://github.com/vmorilla/DeZog/tree/claude/z88dk-parser-v3) of vmorilla/DeZog. Build it with `npm ci && npx @vscode/vsce package` and install the resulting `.vsix` with "Extensions: Install from VSIX...".
+- A DeZog build with the "z88dkv3" parser: branch [claude/z88dk-parser-v3-on-3.7.4](https://github.com/vmorilla/DeZog/tree/claude/z88dk-parser-v3-on-3.7.4) of vmorilla/DeZog (based on DeZog 3.7.4, works with the CSpect DeZogPlugin speaking DZRP 2.0). The branch [claude/z88dk-parser-v3](https://github.com/vmorilla/DeZog/tree/claude/z88dk-parser-v3) is based on the unreleased DeZog 3.8.0, which requires DZRP 2.2 (DeZogPlugin 2.4.0). Build it with `npm ci && npx @vscode/vsce package` and install the resulting `.vsix` with "Extensions: Install from VSIX...".
 
 Limitations of "z88dkv3":
 - Assembler files (e.g. [src/clear-ula.asm](src/clear-ula.asm)) only get line information for lines with a label.
